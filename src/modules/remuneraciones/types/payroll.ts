@@ -115,6 +115,12 @@ export interface PayrollConcept {
   nonZeroCount: number;
   /** Valor de la columna en la fila de totales del Excel (si existe). */
   excelTotal: number | null;
+  /**
+   * Clasificacion informada por la fuente de datos (ej. el `type` de una linea
+   * de liquidacion de Buk). Si existe, el analizador la usa en vez de adivinar
+   * por el titulo. Los libros Excel no la informan.
+   */
+  sourceClassification?: ConceptClassification;
 }
 
 /** Datos de identificacion de un trabajador. */

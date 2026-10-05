@@ -42,6 +42,24 @@ export function analyzePayroll(
   for (const concept of book.concepts) {
     const dict = classifyByDictionary(concept.label);
 
+    // La fuente (ej. Buk) ya sabe que es cada linea: no se adivina por titulo
+    // ni se busca relacion matematica (evita falsos totalizadores).
+    if (concept.sourceClassification) {
+      result[concept.id] = {
+        conceptId: concept.id,
+        suggestedClassification: concept.sourceClassification,
+        suggestedThirdPartyMode: dict.thirdPartyMode,
+        confidence: 0.95,
+        looksLikeTotalizer: false,
+        nameSaysTotalizer: false,
+        mathSaysTotalizer: false,
+        totalizerReason: null,
+        componentConceptIds: [],
+        rationale: 'Clasificacion informada por la fuente de datos (Buk).',
+      };
+      continue;
+    }
+
     // --- Deteccion matematica de totalizador --------------------------------
     const math = detectTotalizerByMath(
       concept,

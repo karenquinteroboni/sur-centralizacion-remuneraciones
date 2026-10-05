@@ -5,12 +5,16 @@
  * No se sube a ningun servidor y no se registran datos personales en consola.
  */
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PayrollBook } from '../types/payroll';
+import type { BukCompanyOption } from '../core/buk/bukSource';
 import { Alert, Button, Card, Stat } from './ui';
 
 export interface UploadPayrollProps {
   onFileSelected: (file: File) => void;
+  /** Empresas con Buk configurado en el servidor. Vacio = no se muestra la opcion. */
+  bukCompanies?: BukCompanyOption[];
+  onFetchBuk?: (companyId: string, period: string) => void;
   loading: boolean;
   error: string | null;
   book: PayrollBook | null;
@@ -22,6 +26,8 @@ const ACCEPTED = '.xlsx,.xlsm,.xls,.csv';
 
 export function UploadPayroll({
   onFileSelected,
+  bukCompanies = [],
+  onFetchBuk,
   loading,
   error,
   book,
@@ -30,6 +36,15 @@ export function UploadPayroll({
 }: UploadPayrollProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
+  const [bukCompany, setBukCompany] = useState('');
+  useEffect(() => {
+    if (bukCompanies.length === 1) setBukCompany(bukCompanies[0].id);
+  }, [bukCompanies]);
+  const [bukPeriod, setBukPeriod] = useState(() => {
+    const d = new Date();
+    d.setMonth(d.getMonth() - 1); // mes anterior: el que normalmente se centraliza
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  });
 
   const handleFiles = useCallback(
     (files: FileList | null) => {
@@ -90,6 +105,45 @@ export function UploadPayroll({
         )}
       </Card>
 
+      {bukCompanies.length > 0 && onFetchBuk && (
+        <Card
+          title="O traiga los datos directamente desde Buk"
+          description="Solo se leen liquidaciones cerradas. El token de Buk permanece en el servidor."
+        >
+          <div className="crm-row" style={{ alignItems: 'flex-end', gap: 12, flexWrap: 'wrap' }}>
+            <label className="crm-field">
+              <span className="crm-small crm-muted">Empresa</span>
+              <select
+                className="crm-select"
+                value={bukCompany}
+                onChange={(e) => setBukCompany(e.target.value)}
+              >
+                <option value="">Seleccione...</option>
+                {bukCompanies.map((c) => (
+                  <option key={c.id} value={c.id}>{c.name || c.id}</option>
+                ))}
+              </select>
+            </label>
+            <label className="crm-field">
+              <span className="crm-small crm-muted">Periodo</span>
+              <input
+                className="crm-input"
+                type="month"
+                value={bukPeriod}
+                onChange={(e) => setBukPeriod(e.target.value)}
+              />
+            </label>
+            <Button
+              variant="primary"
+              disabled={loading || !bukCompany || !/^\d{4}-\d{2}$/.test(bukPeriod)}
+              onClick={() => onFetchBuk(bukCompany, bukPeriod)}
+            >
+              {loading ? 'Consultando Buk...' : 'Traer desde Buk'}
+            </Button>
+          </div>
+        </Card>
+      )}
+
       {book && (
         <Card
           title="Datos detectados"
@@ -110,11 +164,17 @@ export function UploadPayroll({
           </div>
 
           <div className="crm-small crm-muted" style={{ marginBottom: 12 }}>
-            Hoja <strong>{book.meta.sheetName}</strong> · fila de titulos detectada:{' '}
-            <strong>{book.meta.headerRowIndex + 1}</strong> ·{' '}
-            {book.meta.totalsRowIndex !== null
-              ? <>fila de totales: <strong>{book.meta.totalsRowIndex + 1}</strong></>
-              : 'sin fila de totales'}
+            {book.meta.sourceFileName.startsWith('buk:') ? (
+              <>Fuente: <strong>API de Buk</strong> (liquidaciones cerradas) · sin fila de totales</>
+            ) : (
+              <>
+                Hoja <strong>{book.meta.sheetName}</strong> · fila de titulos detectada:{' '}
+                <strong>{book.meta.headerRowIndex + 1}</strong> ·{' '}
+                {book.meta.totalsRowIndex !== null
+                  ? <>fila de totales: <strong>{book.meta.totalsRowIndex + 1}</strong></>
+                  : 'sin fila de totales'}
+              </>
+            )}
           </div>
 
           {book.warnings.map((w, i) => (

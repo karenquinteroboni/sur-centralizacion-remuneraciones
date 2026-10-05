@@ -52,6 +52,8 @@ ISO-8859-1, la validación de RUT y el motor contable son código propio.
 
 ---
 
+> **Fuente Buk (API):** ver [`BUK.md`](BUK.md).
+
 ## 2. Arquitectura
 
 ```text

@@ -25,6 +25,7 @@ import type {
 } from './types/payroll';
 
 import { parsePayrollWorkbook } from './core/excelParser';
+import { fetchBukBook, listBukCompanies, type BukCompanyOption } from './core/buk/bukSource';
 import { analyzePayroll } from './core/payrollAnalyzer';
 import {
   ConfigRepository,
@@ -111,6 +112,9 @@ export interface RemuneracionesModuleProps {
    * precargar el libro desde su propio almacenamiento.
    */
   onSelectCompany?: (row: CompanyRow) => void;
+
+  /** Base del proxy de Buk. Por defecto `/api/buk`; la opcion solo aparece si responde. */
+  bukEndpoint?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -127,6 +131,7 @@ export function RemuneracionesModule({
   companyFacets,
   renderCompanyExtra,
   onSelectCompany,
+  bukEndpoint = '/api/buk',
 }: RemuneracionesModuleProps = {}) {
   const repository = useMemo(
     () => configRepository ?? new LocalStorageConfigRepository(),
@@ -243,14 +248,14 @@ export function RemuneracionesModule({
   );
 
   /* --- Carga del archivo -------------------------------------------------- */
-  const handleFile = useCallback(
-    async (file: File) => {
+  /** Carga un libro desde cualquier fuente (Excel o Buk) y lo deja listo para parametrizar. */
+  const loadBook = useCallback(
+    async (getBook: () => Promise<PayrollBook>) => {
       setLoading(true);
       setReadError(null);
       setConfigSaved(false);
       try {
-        const buffer = await file.arrayBuffer();
-        const parsed = parsePayrollWorkbook(buffer, { fileName: file.name });
+        const parsed = await getBook();
         if (parsed.concepts.length === 0) {
           throw new Error('No se detectaron conceptos en el archivo.');
         }
@@ -310,6 +315,29 @@ export function RemuneracionesModule({
       }
     },
     [repository, selectedCompany],
+  );
+
+  const handleFile = useCallback(
+    (file: File) =>
+      loadBook(async () =>
+        parsePayrollWorkbook(await file.arrayBuffer(), { fileName: file.name }),
+      ),
+    [loadBook],
+  );
+
+  const [bukCompanies, setBukCompanies] = useState<BukCompanyOption[]>([]);
+  useEffect(() => {
+    let alive = true;
+    listBukCompanies(bukEndpoint).then((list) => alive && setBukCompanies(list));
+    return () => {
+      alive = false;
+    };
+  }, [bukEndpoint]);
+
+  const handleBuk = useCallback(
+    (companyId: string, period: string) =>
+      loadBook(() => fetchBukBook(companyId, period, bukEndpoint)),
+    [loadBook, bukEndpoint],
   );
 
   /* --- Edicion de conceptos ---------------------------------------------- */
@@ -581,6 +609,8 @@ export function RemuneracionesModule({
         {step === 'upload' && (
           <UploadPayroll
             onFileSelected={handleFile}
+            bukCompanies={bukCompanies}
+            onFetchBuk={handleBuk}
             loading={loading}
             error={readError}
             book={book}

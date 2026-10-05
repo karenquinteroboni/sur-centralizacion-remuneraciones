@@ -241,7 +241,8 @@ export function validateCentralization(
   });
 
   if (workerFichaConcepts.length > 0) {
-    if (book.identityColumns.rut === null) {
+    // Un libro Excel indica la columna de RUT; una fuente por API (Buk) trae el RUT en cada trabajador.
+    if (book.identityColumns.rut === null && !book.workers.some((w) => w.rut)) {
       issues.push({
         code: 'V6_SIN_COLUMNA_RUT',
         severity: 'ERROR',
