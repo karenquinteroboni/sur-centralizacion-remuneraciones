@@ -1,0 +1,651 @@
+/* ==========================================================================
+ *  Estilos del modulo de Centralizacion de Remuneraciones.
+ *
+ *  TODAS las clases usan el prefijo `crm-` y todas las variables el prefijo
+ *  `--crm-`, de modo que el modulo puede convivir con los estilos del
+ *  aplicativo anfitrion sin colisiones.
+ *
+ *  Para adaptar el modulo a la identidad visual del sistema existente basta
+ *  con redefinir las variables de `.crm-root`.
+ * ========================================================================== */
+
+.crm-root {
+  --crm-bg: #f5f7fa;
+  --crm-surface: #ffffff;
+  --crm-surface-2: #f8fafc;
+  --crm-border: #e2e8f0;
+  --crm-border-strong: #cbd5e1;
+  --crm-text: #0f172a;
+  --crm-text-muted: #64748b;
+  --crm-primary: #1d4ed8;
+  --crm-primary-dark: #1e40af;
+  --crm-primary-soft: #eff6ff;
+  --crm-on-primary: #ffffff;
+  --crm-ok: #15803d;
+  --crm-ok-soft: #dcfce7;
+  --crm-warn: #b45309;
+  --crm-warn-soft: #fef3c7;
+  --crm-error: #b91c1c;
+  --crm-error-soft: #fee2e2;
+  --crm-muted-soft: #f1f5f9;
+  --crm-ok-line: #86efac;
+  --crm-ok-text: #14532d;
+  --crm-warn-line: #fcd34d;
+  --crm-warn-text: #78350f;
+  --crm-error-line: #fca5a5;
+  --crm-error-text: #7f1d1d;
+  --crm-info-line: #bfdbfe;
+  --crm-info-text: #1e3a8a;
+  --crm-radius: 10px;
+  --crm-radius-sm: 6px;
+  --crm-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(15, 23, 42, 0.05);
+
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--crm-text);
+  background: var(--crm-bg);
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.crm-root *,
+.crm-root *::before,
+.crm-root *::after {
+  box-sizing: inherit;
+}
+
+/* --------------------------------------------------------------------------
+ *  TEMA OSCURO
+ *  Se redefinen SOLO los tokens; ningun componente declara un color literal.
+ *  Tres estados: preferencia del sistema (sin marca), y las marcas explicitas
+ *  data-theme="light" / data-theme="dark", que siempre ganan sobre el sistema.
+ * -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .crm-root,
+  .crm-root:not([data-theme='light']) {
+    --crm-bg: #0b1220;
+    --crm-surface: #131c2e;
+    --crm-surface-2: #0f1727;
+    --crm-border: #24304a;
+    --crm-border-strong: #33415f;
+    --crm-text: #e6ebf5;
+    --crm-text-muted: #93a2bd;
+    --crm-primary: #4f8ff7;
+    --crm-primary-dark: #6ba3ff;
+    --crm-primary-soft: #16253f;
+    --crm-on-primary: #08111f;
+    --crm-ok: #56d98a;
+    --crm-ok-soft: #10291c;
+    --crm-warn: #f0b429;
+    --crm-warn-soft: #2d2310;
+    --crm-error: #f87171;
+    --crm-error-soft: #2e1618;
+    --crm-muted-soft: #1a2437;
+    --crm-ok-line: #2f6b46;
+    --crm-ok-text: #9ff0bd;
+    --crm-warn-line: #7a5d1b;
+    --crm-warn-text: #f8d68a;
+    --crm-error-line: #7d3b3d;
+    --crm-error-text: #fca5a5;
+    --crm-info-line: #2c4670;
+    --crm-info-text: #a8c8ff;
+    --crm-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+:root[data-theme='dark'] .crm-root,
+.crm-root[data-theme='dark'] {
+--crm-bg: #0b1220;
+  --crm-surface: #131c2e;
+  --crm-surface-2: #0f1727;
+  --crm-border: #24304a;
+  --crm-border-strong: #33415f;
+  --crm-text: #e6ebf5;
+  --crm-text-muted: #93a2bd;
+  --crm-primary: #4f8ff7;
+  --crm-primary-dark: #6ba3ff;
+  --crm-primary-soft: #16253f;
+  --crm-on-primary: #08111f;
+  --crm-ok: #56d98a;
+  --crm-ok-soft: #10291c;
+  --crm-warn: #f0b429;
+  --crm-warn-soft: #2d2310;
+  --crm-error: #f87171;
+  --crm-error-soft: #2e1618;
+  --crm-muted-soft: #1a2437;
+  --crm-ok-line: #2f6b46;
+  --crm-ok-text: #9ff0bd;
+  --crm-warn-line: #7a5d1b;
+  --crm-warn-text: #f8d68a;
+  --crm-error-line: #7d3b3d;
+  --crm-error-text: #fca5a5;
+  --crm-info-line: #2c4670;
+  --crm-info-text: #a8c8ff;
+  --crm-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Layout -------------------------------------------------------------- */
+
+.crm-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.crm-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.crm-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.crm-subtitle {
+  margin: 4px 0 0;
+  color: var(--crm-text-muted);
+  font-size: 13px;
+}
+
+.crm-card {
+  background: var(--crm-surface);
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  box-shadow: var(--crm-shadow);
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.crm-card__title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.crm-card__desc {
+  margin: 0 0 16px;
+  color: var(--crm-text-muted);
+  font-size: 13px;
+}
+
+.crm-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.crm-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.crm-spacer { flex: 1 1 auto; }
+
+/* --- Stepper ------------------------------------------------------------- */
+
+.crm-stepper {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px;
+  background: var(--crm-surface);
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  margin-bottom: 18px;
+}
+
+.crm-step {
+  flex: 1 1 0;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  border-radius: var(--crm-radius-sm);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--crm-text-muted);
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.crm-step:hover:not(:disabled) { background: var(--crm-surface-2); }
+.crm-step:disabled { cursor: not-allowed; opacity: 0.5; }
+
+.crm-step--active {
+  background: var(--crm-primary-soft);
+  color: var(--crm-primary-dark);
+  font-weight: 600;
+}
+
+.crm-step--done { color: var(--crm-ok); }
+
+.crm-step__num {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--crm-muted-soft);
+  color: var(--crm-text-muted);
+}
+
+.crm-step--active .crm-step__num { background: var(--crm-primary); color: var(--crm-on-primary); }
+.crm-step--done .crm-step__num { background: var(--crm-ok-soft); color: var(--crm-ok); }
+
+.crm-step__label { font-size: 13px; }
+
+/* --- Botones ------------------------------------------------------------- */
+
+.crm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--crm-radius-sm);
+  border: 1px solid var(--crm-border-strong);
+  background: var(--crm-surface);
+  color: var(--crm-text);
+  font: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, opacity 120ms ease;
+  white-space: nowrap;
+}
+
+.crm-btn:hover:not(:disabled) { background: var(--crm-surface-2); }
+.crm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.crm-btn--primary {
+  background: var(--crm-primary);
+  border-color: var(--crm-primary);
+  color: var(--crm-on-primary);
+}
+.crm-btn--primary:hover:not(:disabled) { background: var(--crm-primary-dark); }
+
+.crm-btn--ghost { border-color: transparent; background: transparent; }
+.crm-btn--ghost:hover:not(:disabled) { background: var(--crm-muted-soft); }
+
+.crm-btn--sm { padding: 5px 10px; font-size: 12.5px; }
+
+/* --- Zona de carga ------------------------------------------------------- */
+
+.crm-drop {
+  border: 2px dashed var(--crm-border-strong);
+  border-radius: var(--crm-radius);
+  background: var(--crm-surface-2);
+  padding: 44px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.crm-drop:hover { border-color: var(--crm-primary); background: var(--crm-primary-soft); }
+.crm-drop--active { border-color: var(--crm-primary); background: var(--crm-primary-soft); }
+
+.crm-drop__icon { font-size: 34px; line-height: 1; margin-bottom: 10px; }
+.crm-drop__title { font-weight: 650; margin-bottom: 4px; }
+.crm-drop__hint { color: var(--crm-text-muted); font-size: 13px; }
+
+/* --- Formularios --------------------------------------------------------- */
+
+.crm-field { display: flex; flex-direction: column; gap: 5px; }
+
+.crm-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--crm-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.crm-input,
+.crm-select,
+.crm-textarea {
+  padding: 8px 10px;
+  border: 1px solid var(--crm-border-strong);
+  border-radius: var(--crm-radius-sm);
+  font: inherit;
+  background: var(--crm-surface);
+  color: var(--crm-text);
+  width: 100%;
+  min-width: 0;
+}
+
+.crm-input:focus,
+.crm-select:focus,
+.crm-textarea:focus {
+  outline: 2px solid var(--crm-primary);
+  outline-offset: -1px;
+  border-color: var(--crm-primary);
+}
+
+.crm-input--sm, .crm-select--sm { padding: 5px 7px; font-size: 12.5px; }
+.crm-input--error { border-color: var(--crm-error); background: var(--crm-error-soft); }
+.crm-input--mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+/* --- Tablas -------------------------------------------------------------- */
+
+.crm-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  background: var(--crm-surface);
+}
+
+.crm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+/* Evita que las columnas editables se aplasten cuando el panel lateral
+   reduce el ancho disponible: la tabla mantiene un ancho minimo y el
+   contenedor ofrece scroll horizontal. */
+.crm-table--wide { min-width: 1090px; }
+
+.crm-table th {
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--crm-text-muted);
+  background: var(--crm-surface-2);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--crm-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.crm-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--crm-border);
+  vertical-align: middle;
+}
+
+.crm-table tbody tr:last-child td { border-bottom: none; }
+.crm-table tbody tr:hover { background: var(--crm-surface-2); }
+.crm-table tr.crm-row--excluded { opacity: 0.55; }
+.crm-table tr.crm-row--selected { background: var(--crm-primary-soft); }
+
+.crm-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+}
+
+.crm-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.crm-table__foot td {
+  font-weight: 700;
+  background: var(--crm-surface-2);
+  border-top: 2px solid var(--crm-border-strong);
+}
+
+/* --- Badges y estados ---------------------------------------------------- */
+
+.crm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  white-space: nowrap;
+  background: var(--crm-muted-soft);
+  color: var(--crm-text-muted);
+}
+
+.crm-badge--ok { background: var(--crm-ok-soft); color: var(--crm-ok); }
+.crm-badge--warn { background: var(--crm-warn-soft); color: var(--crm-warn); }
+.crm-badge--error { background: var(--crm-error-soft); color: var(--crm-error); }
+.crm-badge--info { background: var(--crm-primary-soft); color: var(--crm-primary-dark); }
+
+.crm-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.crm-dot--ok { background: var(--crm-ok); }
+.crm-dot--warn { background: var(--crm-warn); }
+.crm-dot--error { background: var(--crm-error); }
+.crm-dot--muted { background: var(--crm-border-strong); }
+
+/* --- Estadisticas -------------------------------------------------------- */
+
+.crm-stat {
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  background: var(--crm-surface);
+  padding: 14px 16px;
+}
+
+.crm-stat__label {
+  font-size: 11.5px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--crm-text-muted);
+  margin-bottom: 4px;
+}
+
+.crm-stat__value {
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.crm-stat--ok { border-color: var(--crm-ok); background: var(--crm-ok-soft); }
+.crm-stat--ok .crm-stat__value { color: var(--crm-ok); }
+.crm-stat--error { border-color: var(--crm-error); background: var(--crm-error-soft); }
+.crm-stat--error .crm-stat__value { color: var(--crm-error); }
+
+/* --- Avisos -------------------------------------------------------------- */
+
+.crm-alert {
+  display: flex;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: var(--crm-radius-sm);
+  border: 1px solid var(--crm-border);
+  background: var(--crm-surface-2);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.crm-alert--ok { border-color: var(--crm-ok-line); background: var(--crm-ok-soft); color: var(--crm-ok-text); }
+.crm-alert--warn { border-color: var(--crm-warn-line); background: var(--crm-warn-soft); color: var(--crm-warn-text); }
+.crm-alert--error { border-color: var(--crm-error-line); background: var(--crm-error-soft); color: var(--crm-error-text); }
+.crm-alert--info { border-color: var(--crm-info-line); background: var(--crm-primary-soft); color: var(--crm-info-text); }
+
+.crm-alert__icon { flex: 0 0 auto; font-weight: 700; }
+.crm-alert__body { flex: 1 1 auto; min-width: 0; }
+.crm-alert__title { font-weight: 650; margin-bottom: 2px; }
+
+/* --- Banner de resultado global ----------------------------------------- */
+
+.crm-verdict {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--crm-radius);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  border: 2px solid;
+}
+
+.crm-verdict--ok { border-color: var(--crm-ok); background: var(--crm-ok-soft); color: var(--crm-ok-text); }
+.crm-verdict--error { border-color: var(--crm-error); background: var(--crm-error-soft); color: var(--crm-error-text); }
+
+/* --- Panel lateral de configuracion ------------------------------------- */
+
+.crm-panel {
+  position: sticky;
+  top: 16px;
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  background: var(--crm-surface);
+  padding: 16px;
+  box-shadow: var(--crm-shadow);
+}
+
+.crm-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .crm-split { grid-template-columns: minmax(0, 1fr); }
+  .crm-panel { position: static; }
+}
+
+.crm-panel__section { margin-bottom: 14px; }
+.crm-panel__section:last-child { margin-bottom: 0; }
+
+.crm-hr { border: none; border-top: 1px solid var(--crm-border); margin: 14px 0; }
+
+/* --- Miscelaneos --------------------------------------------------------- */
+
+.crm-checkbox { width: 16px; height: 16px; accent-color: var(--crm-primary); cursor: pointer; }
+
+.crm-muted { color: var(--crm-text-muted); }
+.crm-small { font-size: 12px; }
+.crm-strong { font-weight: 650; }
+.crm-nowrap { white-space: nowrap; }
+.crm-truncate { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.crm-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.crm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--crm-text-muted);
+  margin-top: 10px;
+}
+
+.crm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+.crm-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  background: var(--crm-muted-soft);
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius-sm);
+  padding: 12px;
+  overflow: auto;
+  max-height: 320px;
+  white-space: pre;
+  margin: 0;
+}
+
+.crm-file-input { display: none; }
+
+/* --- Dialogo modal -------------------------------------------------------- */
+
+.crm-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.crm-modal {
+  background: var(--crm-surface);
+  color: var(--crm-text);
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.28);
+  width: min(880px, 100%);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.crm-modal__head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--crm-border);
+}
+
+.crm-modal__body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.crm-modal__foot {
+  padding: 14px 20px;
+  border-top: 1px solid var(--crm-border);
+  background: var(--crm-surface-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.crm-modal__close {
+  border: none;
+  background: transparent;
+  color: var(--crm-text-muted);
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--crm-radius-sm);
+}
+
+.crm-modal__close:hover { background: var(--crm-muted-soft); color: var(--crm-text); }
+
+/* Tarjeta seleccionable de grupo de campos. */
+.crm-pick {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius-sm);
+  background: var(--crm-surface);
+  cursor: pointer;
+}
+
+.crm-pick:hover { background: var(--crm-surface-2); }
+.crm-pick--on { border-color: var(--crm-primary); background: var(--crm-primary-soft); }
+.crm-pick--off { opacity: 0.55; }

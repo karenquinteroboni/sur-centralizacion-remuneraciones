@@ -1,0 +1,78 @@
+==============================================================================
+1. LECTURA DEL LIBRO
+==============================================================================
+   Empresa .............. JOSE HERRERA SPA (76.562.151-8)
+   Periodo .............. Julio 2026 -> 202607
+   Fila de titulos ...... 6 (detectada automaticamente)
+   Fila de totales ...... 31
+   Trabajadores ......... 23
+   Conceptos ............ 39
+   AVISO: Titulos repetidos detectados (HORAS EXTRAS). Se asigno un identificador interno unico a cada columna.
+
+==============================================================================
+2. CONCEPTOS DETECTADOS
+==============================================================================
+   ID INTERNO                        CLASIFICACION              TOTAL  OBSERVACION
+   DIAS_TRABAJADOS_01                INFORMATIVO                  602  
+   HORAS_SEMANALES_01                INFORMATIVO                  858  
+   HORAS_NO_TRABAJADAS_01            INFORMATIVO                    0  
+   BASE_IMP_PREVISION_01             INFORMATIVO           30.252.855  
+   BASE_IMP_CESANTIA_01              INFORMATIVO           34.601.140  
+   SUELDO_BASE_01                    HABER                 30.043.989  
+   GRATIFICACION_01                  HABER                  3.654.581  
+   APORTE_ASISTENCIA_01              HABER                          0  
+   HORAS_EXTRAS_01                   HABER                    965.233  DUPLICADO
+   ASIGNACION_FAMILIAR_01            HABER                          0  
+   BONO_ACTIVACION_01                HABER                    192.000  
+   BONO_CUMPLIMIENTO_META_01         HABER                    110.880  
+   BONO_GESTION_DE_TIENDAS_01        HABER                    396.000  
+   BONO_SUPERVISION_01               HABER                    120.000  
+   BONO_TICKET_01                    HABER                     72.000  
+   COLACION_01                       HABER                    406.667  
+   COMISIONES_01                     HABER                    601.131  
+   FERIADO_01                        HABER                    321.772  
+   HORAS_EXTRAS_02                   HABER                    118.796  DUPLICADO
+   MOVILIZACION_01                   HABER                    406.667  
+   SEMANA_CORRIDA_01                 HABER                    122.243  
+   TOTAL_HABERES_01                  TOTALIZADOR           37.531.959  TOTALIZADOR?
+   PREVIS_01                         DESCUENTO              3.320.961  
+   APV_01                            DESCUENTO                      0  
+   SALUD_01                          DESCUENTO              2.117.701  
+   SALUD_VOLUNTARIA_01               DESCUENTO                544.393  
+   CESANTIA_01                       DESCUENTO                163.098  
+   IMPUESTO_01                       DESCUENTO              1.385.835  
+   CUENTA_2_01                       (ambiguo)                      0  REQUIERE PARAMETRIZACION
+   OTROS_DESCUENTOS_FINIQUITO_01     DESCUENTO                  3.334  
+   TOTAL_DESCUENTOS_01               TOTALIZADOR            7.535.322  TOTALIZADOR?
+   SUELDO_LIQUIDO_01                 NETO                  29.996.637  TOTALIZADOR?
+   SOBREGIRO_01                      HABER                          0  
+   APVC_EMPLEADOR_01                 APORTE_EMPLEADOR               0  
+   SIS_01                            APORTE_EMPLEADOR         614.928  
+   MUTUAL_01                         APORTE_EMPLEADOR         281.497  
+   SEGURO_CESANTIA_EMPLEADOR_01      APORTE_EMPLEADOR         886.780  
+   AFP_PREVISION_EMPLEADOR_01        APORTE_EMPLEADOR          30.252  
+   COTIZACION_EXPECTATIVA_DE_VIDA_01 APORTE_EMPLEADOR         276.716  
+
+==============================================================================
+3. ASIENTO CONTABLE
+==============================================================================
+   Movimientos .......... 52
+   TOTAL DEBE ........... 39.622.132
+   TOTAL HABER .......... 39.622.132
+   DIFERENCIA ........... 0
+   ESTADO ............... CENTRALIZACION BALANCEADA
+
+==============================================================================
+4. VALIDACIONES
+==============================================================================
+   Errores: 0 | Advertencias: 0 | Informativos: 7
+   EXPORTACION HABILITADA
+
+==============================================================================
+5. ARCHIVO KAME
+==============================================================================
+   Nombre ............... Centralizacion_Remuneraciones_JOSE_HERRERA_SPA_Julio_2026.csv
+   Filas ................ 52
+   Columnas ............. 17
+   Estructura valida .... SI
+   Guardado en .......... ejemplo-salida/Centralizacion_Remuneraciones_JOSE_HERRERA_SPA_Julio_2026.csv  (ISO-8859-1, CRLF, separador ";")

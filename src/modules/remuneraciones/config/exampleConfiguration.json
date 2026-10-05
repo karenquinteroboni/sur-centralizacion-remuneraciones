@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "companyKey": "PLANTILLA",
+  "companyName": "",
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "_comentario": [
+    "PLANTILLA DE PARAMETRIZACION — NO CONTIENE CUENTAS REALES.",
+    "Las cuentas van vacias a proposito: el modulo NUNCA inventa una cuenta contable.",
+    "Reemplace cada 'account' por la cuenta del plan de cuentas Kame de su empresa.",
+    "Los conceptos listados corresponden a los titulos habituales de un libro de",
+    "remuneraciones chileno; el modulo detecta automaticamente los que existan en",
+    "el archivo cargado y marca como NUEVO cualquier titulo no listado aqui.",
+    "",
+    "conceptId: identificador interno unico. Titulos repetidos reciben sufijo _01, _02...",
+    "classification: HABER | DESCUENTO | APORTE_EMPLEADOR | NETO | TOTALIZADOR | INFORMATIVO",
+    "thirdPartyMode: CONSOLIDATED (un solo movimiento) | PER_WORKER (uno por trabajador)",
+    "APORTE_EMPLEADOR usa expenseAccount (DEBE, gasto) y liabilityAccount (HABER, obligacion)."
+  ],
+  "voucher": {
+    "tipoComprobante": "TRASPASO",
+    "folioAuto": "S",
+    "folio": "1",
+    "fecha": "",
+    "comentario": "",
+    "unidadNegocio": "Casa Matriz",
+    "numeroMovimiento": "",
+    "tipoMovimiento": "",
+    "nombreDoc": "",
+    "folioDoc": ""
+  },
+  "concepts": {
+    "DIAS_TRABAJADOS_01": {
+      "conceptId": "DIAS_TRABAJADOS_01",
+      "label": "DÍAS TRABAJADOS",
+      "include": false,
+      "classification": "INFORMATIVO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Columna de referencia: no genera asiento."
+    },
+    "BASE_IMP_PREVISION_01": {
+      "conceptId": "BASE_IMP_PREVISION_01",
+      "label": "BASE IMP. PREVISIÓN",
+      "include": false,
+      "classification": "INFORMATIVO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Base de calculo: no genera asiento."
+    },
+    "BASE_IMP_CESANTIA_01": {
+      "conceptId": "BASE_IMP_CESANTIA_01",
+      "label": "BASE IMP. CESANTÍA",
+      "include": false,
+      "classification": "INFORMATIVO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+
+    "SUELDO_BASE_01": {
+      "conceptId": "SUELDO_BASE_01",
+      "label": "SUELDO BASE",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Cuenta de gasto por remuneraciones. Ej. 5.xx.xx.xx"
+    },
+    "GRATIFICACION_01": {
+      "conceptId": "GRATIFICACION_01",
+      "label": "GRATIFICACIÓN",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "HORAS_EXTRAS_01": {
+      "conceptId": "HORAS_EXTRAS_01",
+      "label": "HORAS EXTRAS",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Primera columna con este titulo."
+    },
+    "HORAS_EXTRAS_02": {
+      "conceptId": "HORAS_EXTRAS_02",
+      "label": "HORAS EXTRAS",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Segunda columna con el MISMO titulo: identificador interno distinto."
+    },
+    "COMISIONES_01": {
+      "conceptId": "COMISIONES_01",
+      "label": "COMISIONES",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "COLACION_01": {
+      "conceptId": "COLACION_01",
+      "label": "COLACIÓN",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Haber no imponible."
+    },
+    "MOVILIZACION_01": {
+      "conceptId": "MOVILIZACION_01",
+      "label": "MOVILIZACIÓN",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Haber no imponible."
+    },
+    "SEMANA_CORRIDA_01": {
+      "conceptId": "SEMANA_CORRIDA_01",
+      "label": "SEMANA CORRIDA",
+      "include": true,
+      "classification": "HABER",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+
+    "TOTAL_HABERES_01": {
+      "conceptId": "TOTAL_HABERES_01",
+      "label": "TOTAL HABERES",
+      "include": false,
+      "classification": "TOTALIZADOR",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "EXCLUIDO: incluirlo junto a sus componentes duplicaria el gasto."
+    },
+
+    "PREVIS_01": {
+      "conceptId": "PREVIS_01",
+      "label": "PREVIS",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Cotizacion previsional del trabajador. Cuenta de pasivo. Ej. 2.xx.xx.xx"
+    },
+    "SALUD_01": {
+      "conceptId": "SALUD_01",
+      "label": "SALUD",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "SALUD_VOLUNTARIA_01": {
+      "conceptId": "SALUD_VOLUNTARIA_01",
+      "label": "SALUD VOLUNTARIA",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "CESANTIA_01": {
+      "conceptId": "CESANTIA_01",
+      "label": "CESANTÍA",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Parte de cargo del trabajador (0,6%)."
+    },
+    "IMPUESTO_01": {
+      "conceptId": "IMPUESTO_01",
+      "label": "IMPUESTO",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "Impuesto unico de segunda categoria retenido."
+    },
+    "APV_01": {
+      "conceptId": "APV_01",
+      "label": "APV",
+      "include": true,
+      "classification": "DESCUENTO",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+
+    "TOTAL_DESCUENTOS_01": {
+      "conceptId": "TOTAL_DESCUENTOS_01",
+      "label": "TOTAL DESCUENTOS",
+      "include": false,
+      "classification": "TOTALIZADOR",
+      "account": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "EXCLUIDO: es la suma de los descuentos ya incluidos."
+    },
+
+    "SUELDO_LIQUIDO_01": {
+      "conceptId": "SUELDO_LIQUIDO_01",
+      "label": "SUELDO LÍQUIDO",
+      "include": true,
+      "classification": "NETO",
+      "account": "",
+      "thirdPartyMode": "PER_WORKER",
+      "notes": "Sueldos por pagar. En modo PER_WORKER genera una linea por trabajador con su RUT y nombre."
+    },
+
+    "SIS_01": {
+      "conceptId": "SIS_01",
+      "label": "SIS",
+      "include": true,
+      "classification": "APORTE_EMPLEADOR",
+      "account": "",
+      "expenseAccount": "",
+      "liabilityAccount": "",
+      "thirdPartyMode": "CONSOLIDATED",
+      "notes": "DEBE = gasto previsional | HABER = obligacion previsional."
+    },
+    "MUTUAL_01": {
+      "conceptId": "MUTUAL_01",
+      "label": "MUTUAL",
+      "include": true,
+      "classification": "APORTE_EMPLEADOR",
+      "account": "",
+      "expenseAccount": "",
+      "liabilityAccount": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "SEGURO_CESANTIA_EMPLEADOR_01": {
+      "conceptId": "SEGURO_CESANTIA_EMPLEADOR_01",
+      "label": "SEGURO CESANTÍA EMPLEADOR",
+      "include": true,
+      "classification": "APORTE_EMPLEADOR",
+      "account": "",
+      "expenseAccount": "",
+      "liabilityAccount": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "AFP_PREVISION_EMPLEADOR_01": {
+      "conceptId": "AFP_PREVISION_EMPLEADOR_01",
+      "label": "AFP PREVISION EMPLEADOR",
+      "include": true,
+      "classification": "APORTE_EMPLEADOR",
+      "account": "",
+      "expenseAccount": "",
+      "liabilityAccount": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    },
+    "COTIZACION_EXPECTATIVA_DE_VIDA_01": {
+      "conceptId": "COTIZACION_EXPECTATIVA_DE_VIDA_01",
+      "label": "COTIZACIÓN EXPECTATIVA DE VIDA",
+      "include": true,
+      "classification": "APORTE_EMPLEADOR",
+      "account": "",
+      "expenseAccount": "",
+      "liabilityAccount": "",
+      "thirdPartyMode": "CONSOLIDATED"
+    }
+  }
+}
