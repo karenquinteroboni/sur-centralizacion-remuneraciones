@@ -26,6 +26,9 @@ Prueba por consola, sin UI y sin imprimir datos de personas:
 > Publicar el proxy fuera de localhost exige ponerlo detrás de autenticación: cada llamada
 > devuelve remuneraciones individuales.
 
+Revisar muchos meses de una vez (cuáles están cerrados, cuántas liquidaciones, si el asiento cuadra):
+`npx tsx scripts/scanBukPeriods.ts exteriliza 2025-01 2026-10`
+
 ## Comportamientos de la API verificados con datos reales
 
 | Hecho | Consecuencia en el código |
